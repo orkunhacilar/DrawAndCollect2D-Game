@@ -13,7 +13,19 @@ public class CizgiCiz : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0)) // sol click basildigi anda
+        {
+            CizgiOlustur();
+        }
+        if (Input.GetMouseButton(0)) // sol click basili tutuldugu anda
+        {
+            Vector2 ParmakPozisyonu = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (Vector2.Distance(ParmakPozisyonu, ParmakPozisyonListesi[^1]) > .1f) // kontrol saglayiorum son pozisyon ile yeni parmak noktam arasindaki mesafe buyukse cizmeye devam et
+            {
+                CizgiyiGuncelle(ParmakPozisyonu);
+            }
+        }
     }
 
     void CizgiOlustur()
@@ -31,12 +43,22 @@ public class CizgiCiz : MonoBehaviour
         lineRenderer.SetPosition(0, ParmakPozisyonListesi[0]);
         lineRenderer.SetPosition(1, ParmakPozisyonListesi[1]);
 
-        EdgeCollider.points = ParmakPozisyonListesi.ToArray();
+        EdgeCollider.points = ParmakPozisyonListesi.ToArray(); //Cizgiyi guncelle metodunda anlattim.
 
     }
 
     void CizgiyiGuncelle(Vector2 GelenParmakPozisyonu)
     {
+        ParmakPozisyonListesi.Add(GelenParmakPozisyonu);
+        lineRenderer.positionCount++; //misal 3 tane noktam var parmagimi uzattigim zaman bana 4. nokta lazim de mi onun icin bunu artiriyorum.
 
+        //CizgiOlusturda lineRenderer'a degerler ekledik lineRenderer.SetPosition(0, ParmakPozisyonListesi[0]); gibi
+        //Fakat 0 dan basladigi icin bir cikarip son verisine bizim yeni verimizi yani GelenParmakPozisyonumuzu ekliyorum.
+        lineRenderer.SetPosition(lineRenderer.positionCount - 1, GelenParmakPozisyonu);
+
+        //EdgeCollider.points: -> EdgeCollider bileşenine ait noktaların (vertex'lerin) pozisyonlarını temsil eden bir diziye erişmek için kullanılır.
+        //ToArray() metodu, bir listenin elemanlarını bir diziye dönüştürür. Yani, ParmakPozisyonListesi listesinde bulunan elemanlar bir diziye aktarılır.
+        //EdgeCollider.pointsi sey diye dusun icinde array olarak 3 nokta var misal her noktanin x ve y degeri var. birinci nokta baska degerler ikinci nokta baska degerler bunlar birlesip collider ciziliyo gibi dusun iste biz ona degerleri atadik.
+        EdgeCollider.points = ParmakPozisyonListesi.ToArray();
     }
 }
