@@ -6,7 +6,12 @@ public class TopAtar : MonoBehaviour
 {
     [SerializeField] private GameObject[] Toplar;
     [SerializeField] private GameObject TopAtarMerkezi;
+    [SerializeField] private GameObject Kova;
+    [SerializeField] private GameObject[] KovaNoktalari;
     int AktifTopIndex;
+    int RandomKovaPointIndex;
+
+   // Vector2 point;  RASGELE KOVA CIKARMA
 
     private void Update()
     {
@@ -35,7 +40,17 @@ public class TopAtar : MonoBehaviour
             {
                 AktifTopIndex = 0;
             }
-
+           // point = Random.insideUnitCircle * Random.Range(0, 3); // Random bir cember alani icinden bize bir pozisyon veriyor. RASGELE KOVA CIKARMA
+            Invoke("KovayiOrtayaCikart", .5f);
         }
+    }
+
+    void KovayiOrtayaCikart()
+    {
+        // Kova.transform.position = point;    RASGELE KOVA CIKARMA
+
+        RandomKovaPointIndex = Random.Range(0, KovaNoktalari.Length - 1);
+        Kova.transform.position = KovaNoktalari[RandomKovaPointIndex].transform.position;
+        Kova.SetActive(true);
     }
 }
