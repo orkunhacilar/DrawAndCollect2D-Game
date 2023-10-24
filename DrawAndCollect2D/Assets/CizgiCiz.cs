@@ -11,6 +11,8 @@ public class CizgiCiz : MonoBehaviour
     public EdgeCollider2D EdgeCollider;
     public List<Vector2> ParmakPozisyonListesi;
 
+    public List<GameObject> Cizgiler;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) // sol click basildigi anda
@@ -31,6 +33,7 @@ public class CizgiCiz : MonoBehaviour
     void CizgiOlustur()
     {
         Cizgi = Instantiate(LinePrefab, Vector2.zero, Quaternion.identity);
+        Cizgiler.Add(Cizgi);
         lineRenderer = Cizgi.GetComponent<LineRenderer>();
         EdgeCollider = Cizgi.GetComponent<EdgeCollider2D>(); // top uzerinde dursun diye kullanicaz edgecollideri
         ParmakPozisyonListesi.Clear(); // Simdi ayni anda birden fazla cizgi cekmek isteyebilirsin o yuzden bir onceki cizgimizin bilgilerini sifirliyoruz.
@@ -60,5 +63,14 @@ public class CizgiCiz : MonoBehaviour
         //ToArray() metodu, bir listenin elemanlarını bir diziye dönüştürür. Yani, ParmakPozisyonListesi listesinde bulunan elemanlar bir diziye aktarılır.
         //EdgeCollider.pointsi sey diye dusun icinde array olarak 3 nokta var misal her noktanin x ve y degeri var. birinci nokta baska degerler ikinci nokta baska degerler bunlar birlesip collider ciziliyo gibi dusun iste biz ona degerleri atadik.
         EdgeCollider.points = ParmakPozisyonListesi.ToArray();
+    }
+
+    public void DevamEt()
+    {
+        foreach (var item in Cizgiler)
+        {
+            Destroy(item.gameObject);
+        }
+        Cizgiler.Clear();
     }
 }
