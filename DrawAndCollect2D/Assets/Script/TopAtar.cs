@@ -57,6 +57,7 @@ public class TopAtar : MonoBehaviour
                 Kova.transform.position = KovaNoktalari[RandomKovaPointIndex].transform.position;
                 Kova.SetActive(true);
                 Kilit = true;
+                Invoke("TopuKontrolEt",4f);
 
             }
             else
@@ -84,10 +85,17 @@ public class TopAtar : MonoBehaviour
     {
         Kilit = false;
         Kova.SetActive(false);
+        CancelInvoke();
     }
 
     public void TopAtmaDurdur()
     {
         StopAllCoroutines();
+    }
+
+    void TopuKontrolEt()
+    {
+        if (Kilit)
+            GetComponent<GameManager>().OyunBitti();
     }
 }

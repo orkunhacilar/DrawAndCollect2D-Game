@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 
         sesler[3].Play();
         Paneller[1].SetActive(true);
+        Paneller[2].SetActive(false);
         Debug.Log("KAYBETTIN");
 
         ScoreTextleri[1].text = PlayerPrefs.GetInt("BestScore").ToString();
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
         Paneller[0].SetActive(false);
         _TopAtar.OyunBaslasin();
         _CizgiCiz.CizmeyiBaslat();
+        Paneller[2].SetActive(true);
     }
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CizgiCiz : MonoBehaviour
 {
@@ -13,16 +14,20 @@ public class CizgiCiz : MonoBehaviour
 
     public List<GameObject> Cizgiler;
     bool CizmekMumkunmu;
+    int CizmeHakki;
+    [SerializeField] private TextMeshProUGUI CizmeHakkiText;
 
     private void Start()
     {
         CizmekMumkunmu = false;
+        CizmeHakki = 3;
+        CizmeHakkiText.text = CizmeHakki.ToString();
     }
 
     private void Update()
     {
 
-        if (Time.timeScale != 0)
+        if (CizmekMumkunmu && CizmeHakki != 0)
         {
             if (Input.GetMouseButtonDown(0)) // sol click basildigi anda
             {
@@ -36,6 +41,15 @@ public class CizgiCiz : MonoBehaviour
                 {
                     CizgiyiGuncelle(ParmakPozisyonu);
                 }
+            }
+        }
+
+        if(Cizgiler.Count!=0 && CizmeHakki != 0)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                CizmeHakki--;
+                CizmeHakkiText.text = CizmeHakki.ToString();
             }
         }
        
@@ -83,6 +97,9 @@ public class CizgiCiz : MonoBehaviour
             Destroy(item.gameObject);
         }
         Cizgiler.Clear();
+
+        CizmeHakki = 3;
+        CizmeHakkiText.text = CizmeHakki.ToString();
     }
 
     public void CizmeyiDurdur()
@@ -92,6 +109,7 @@ public class CizgiCiz : MonoBehaviour
 
     public void CizmeyiBaslat()
     {
+        CizmeHakki = 3;
         CizmekMumkunmu = true;
     }
 
