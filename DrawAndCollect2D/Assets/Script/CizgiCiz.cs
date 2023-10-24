@@ -12,22 +12,33 @@ public class CizgiCiz : MonoBehaviour
     public List<Vector2> ParmakPozisyonListesi;
 
     public List<GameObject> Cizgiler;
+    bool CizmekMumkunmu;
+
+    private void Start()
+    {
+        CizmekMumkunmu = false;
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // sol click basildigi anda
-        {
-            CizgiOlustur();
-        }
-        if (Input.GetMouseButton(0)) // sol click basili tutuldugu anda
-        {
-            Vector2 ParmakPozisyonu = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (Vector2.Distance(ParmakPozisyonu, ParmakPozisyonListesi[^1]) > .1f) // kontrol saglayiorum son pozisyon ile yeni parmak noktam arasindaki mesafe buyukse cizmeye devam et
+        if (Time.timeScale != 0)
+        {
+            if (Input.GetMouseButtonDown(0)) // sol click basildigi anda
             {
-                CizgiyiGuncelle(ParmakPozisyonu);
+                CizgiOlustur();
+            }
+            if (Input.GetMouseButton(0)) // sol click basili tutuldugu anda
+            {
+                Vector2 ParmakPozisyonu = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                if (Vector2.Distance(ParmakPozisyonu, ParmakPozisyonListesi[^1]) > .1f) // kontrol saglayiorum son pozisyon ile yeni parmak noktam arasindaki mesafe buyukse cizmeye devam et
+                {
+                    CizgiyiGuncelle(ParmakPozisyonu);
+                }
             }
         }
+       
     }
 
     void CizgiOlustur()
@@ -73,4 +84,15 @@ public class CizgiCiz : MonoBehaviour
         }
         Cizgiler.Clear();
     }
+
+    public void CizmeyiDurdur()
+    {
+        CizmekMumkunmu = false;
+    }
+
+    public void CizmeyiBaslat()
+    {
+        CizmekMumkunmu = true;
+    }
+
 }

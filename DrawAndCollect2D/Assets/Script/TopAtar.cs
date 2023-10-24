@@ -12,7 +12,7 @@ public class TopAtar : MonoBehaviour
     int RandomKovaPointIndex;
     bool Kilit;
 
-    private void Start()
+    public void OyunBaslasin()
     {
         StartCoroutine(TopAtisSistemi());
     }
@@ -84,5 +84,10 @@ public class TopAtar : MonoBehaviour
     {
         Kilit = false;
         Kova.SetActive(false);
+    }
+
+    public void TopAtmaDurdur()
+    {
+        StopAllCoroutines();
     }
 }

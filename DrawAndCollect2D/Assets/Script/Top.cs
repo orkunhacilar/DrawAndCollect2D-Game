@@ -11,7 +11,7 @@ public class Top : MonoBehaviour
         if (collision.gameObject.CompareTag("TopGirdi"))
         {
             gameObject.SetActive(false);
-            _GameManager.DevamEt();
+            _GameManager.DevamEt(transform.position);
         }else if (collision.gameObject.CompareTag("OyunBitti"))
         {
             _GameManager.OyunBitti();
