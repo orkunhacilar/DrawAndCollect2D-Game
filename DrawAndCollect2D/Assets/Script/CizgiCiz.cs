@@ -23,7 +23,7 @@ public class CizgiCiz : MonoBehaviour
         CizmeHakki = 3;
         CizmeHakkiText.text = CizmeHakki.ToString();
     }
-
+    //
     private void Update()
     {
 
